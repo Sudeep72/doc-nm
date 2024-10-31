@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom"; // Import Navigate for redirection
 import Dashboard from "./views/Dashboard";
 import Login from "./views/Login";
 import Signup from "./views/Signup";
@@ -20,6 +20,7 @@ import OverlayLoader from "./components/Spinner/OverlayLoader";
 import BookAppointment from "./views/Appointments/components/BookAppointment";
 import DoctorAppointment from "./views/Appointments/components/DoctorAppointment";
 import useTypedSelector from "./hooks/useTypedSelector";
+import Landing from "./views/Landing"; // Import your Landing component
 
 function App() {
   const dispatch = useDispatch();
@@ -68,9 +69,15 @@ function App() {
               </PublicRoutes>
             }
           />
+          {/* Redirect from root path to /landing */}
+          <Route path="/" element={<Navigate to="/landing" replace />} />
+          <Route
+            path="/landing"
+            element={<Landing />} // Render the Landing component here
+          />
           {/* Protected Routes */}
           <Route
-            path="/"
+            path="/dashboard"
             element={
               <ProtectedRoutes>
                 <Dashboard />

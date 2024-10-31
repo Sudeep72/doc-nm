@@ -31,7 +31,7 @@ const PrimaryPhoneInput = ({
   readOnly,
   showErrorMessage,
 }: PhoneNumberProps) => {
-  const [defaultCountry, setDefaultCountry] = useState<any>("");
+  const [defaultCountry, setDefaultCountry] = useState<any>("in"); // Changed default to India
 
   const [loader, setLoader] = useState(false);
 
@@ -50,11 +50,12 @@ const PrimaryPhoneInput = ({
         setDefaultCountry(response?.data?.country_code.toLowerCase());
       } else {
         setLoader(false);
-        setDefaultCountry("pk");
+        setDefaultCountry("in"); // Default to India if not found
       }
     } catch (error) {
       setLoader(false);
       console.warn(error);
+      setDefaultCountry("in"); // Default to India on error
     }
   };
 
@@ -80,7 +81,7 @@ const PrimaryPhoneInput = ({
           },
         }}
         defaultCountry={
-          countryCode ? countryCode.toLowerCase() : defaultCountry || "pk"
+          countryCode ? countryCode.toLowerCase() : defaultCountry || "in"
         }
         onChange={(e: any) => {
           onChange
