@@ -4,7 +4,7 @@ const ProtectedRoutes = (props: any) => {
   if (localStorage.getItem("user")) {
     return props.children;
   } else {
-    return <Navigate to="/login" />;
+    return <Navigate to="/landing" />;
   }
 };
 

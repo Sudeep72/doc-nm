@@ -229,7 +229,7 @@ export default function Navbar({ children }: DashboardProps) {
               sx={{ cursor: "pointer" }}
               onClick={() => {
                 localStorage.removeItem("user");
-                navigate("/login");
+                navigate("/landing");
               }}
             >
               <Tooltip title="Logout" placement="top">

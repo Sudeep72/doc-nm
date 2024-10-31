@@ -70,7 +70,7 @@ function App() {
             }
           />
           {/* Redirect from root path to /landing */}
-          <Route path="/" element={<Navigate to="/landing" replace />} />
+          <Route path="/" element={<Navigate to="/dashboard" replace />} />
           <Route
             path="/landing"
             element={<Landing />} // Render the Landing component here
