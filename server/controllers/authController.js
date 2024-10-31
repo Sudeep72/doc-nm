@@ -3,6 +3,7 @@ const AppError = require("../utils/appError");
 const User = require("../models/userModel");
 const jwt = require("jsonwebtoken");
 const { promisify } = require("util");
+const bcrypt = require("bcryptjs");
 
 const signToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -43,7 +44,12 @@ exports.signup = catchAsync(async (req, res, next) => {
   createSendToken(newUser, 201, res);
 });
 
+const correctPassword = async (candidatePassword, userPassword) => {
+  return await bcrypt.compare(candidatePassword, userPassword);
+};
+
 exports.login = catchAsync(async (req, res, next) => {
+  console.log(req.body);
   const { email, password } = req.body;
 
   // 1) Check if email and password exist
@@ -53,7 +59,7 @@ exports.login = catchAsync(async (req, res, next) => {
 
   // 2) Check if user exists && password is exist
   const user = await User.findOne({ email }).select("+password");
-  const correct = await user.correctPassword(password, user.password);
+  const correct = await correctPassword(password, user.password);
 
   if (!user || !correct) {
     return next(new AppError("Incorrect email or password", 401));
