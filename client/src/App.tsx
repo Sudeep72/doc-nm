@@ -73,7 +73,7 @@ function App() {
           <Route path="/" element={<Navigate to="/dashboard" replace />} />
           <Route
             path="/landing"
-            element={<Landing />} // Render the Landing component here
+            element={<Landing />}
           />
           {/* Protected Routes */}
           <Route
